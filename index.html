@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Practice</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .choices {
+            list-style: none;
+            padding: 0;
+        }
+        .choices li {
+            margin: 5px 0;
+        }
+        .choices button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .btn-submit {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div id="quiz">
+            <div id="question" class="question"></div>
+            <ul id="choices" class="choices"></ul>
+        </div>
+        <div id="result" class="result"></div>
+    </div>
+
+    <div id="classificationSection" class="hidden">
+        <h1>Classify the Expressions</h1>
+        <p>Select the category where each expression belongs: Privacy, Data Protection, or none.</p>
+
+        <form id="classificationForm">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Expression</th>
+                        <th>Privacy</th>
+                        <th>Data Protection</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>Intimacy</td>
+                        <td><input type="radio" name="row1" value="Privacy"></td>
+                        <td><input type="radio" name="row1" value="Data Protection"></td>
+                        <td><input type="radio" name="row1" value="None"></td>
+                    </tr>
+                    <tr>
+                        <td>Purpose-binding of data processing</td>
+                        <td><input type="radio" name="row2" value="Privacy"></td>
+                        <td><input type="radio" name="row2" value="Data Protection"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>A place of seclusion</td>
+                        <td><input type="radio" name="row3" value="Privacy"></td>
+                        <td><input type="radio" name="row3" value="Data Protection"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Rectification of wrong data</td>
+                        <td><input type="radio" name="row4" value="Privacy"></td>
+                        <td><input type="radio" name="row4" value="Data Protection"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Right to be forgotten / deleted</td>
+                        <td><input type="radio" name="row5" value="Privacy"></td>
+                        <td><input type="radio" name="row5" value="Data Protection"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Solitude</td>
+                        <td><input type="radio" name="row6" value="Privacy"></td>
+                        <td><input type="radio" name="row6" value="Data Protection"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Freedom from unauthorized intrusions</td>
+                        <td><input type="radio" name="row7" value="Privacy"></td>
+                        <td><input type="radio" name="row7" value="Data Protection"></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>Control of data collection</td>
+                        <td><input type="radio" name="row8" value="Privacy"></td>
+                        <td><input type="radio" name="row8" value="Data Protection"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>A private matter: secret</td>
+                        <td><input type="radio" name="row9" value="Privacy"></td>
+                        <td><input type="radio" name="row9" value="Data Protection"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Intervenability</td>
+                        <td><input type="radio" name="row10" value="Privacy"></td>
+                        <td><input type="radio" name="row10" value="Data Protection"></td>
+                    </tr>
+                    <tr>
+                        <td>Sensitive personal data</td>
+                        <td><input type="radio" name="row11" value="Privacy"></td>
+                        <td><input type="radio" name="row11" value="Data Protection"></td>
+                        <td><input type="radio" name="row11" value="None"></td>
+                    </tr>
+                    <tr>
+                        <td>The quality or state of being apart from company or observation: seclusion</td>
+                        <td><input type="radio" name="row12" value="Privacy"></td>
+                        <td><input type="radio" name="row12" value="Data Protection"></td>
+                        <td><input type="radio" name="row12" value="None"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <button type="button" class="btn-submit" onclick="submitClassification()">Submit</button>
+        </form>
+        <div id="classificationResult" class="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is considered the historic origin of the European concept of data protection that is today implemented in the GDPR?",
+                choices: ["The Fourth Amendmend of the consitution of the United States of America, 1789", " The Fourth Geneva Convention relative to the Protection of Civilian Persons in Time ofWar" , " Article 12 of the Universal Declaration of Human Rights, 1948", 
+                "The European Data Protection Directive 95/46/EC from 1995."],
+                answer: 3
+            },
+
+            {
+                question: "What are the stakeholders that are referred to in data protection regulation?",
+                choices: ["data subject, data controler, data processor", "big data, machine learning, consumer advocacy groups", "Telecom industry, computer industry, governments", " Telecom industry, computer industry, governments"],
+                answer: 0
+            },
+
+            {
+                question: "Recal Daniel Solove's Taxonomy of Privacy. Solove defines four different, escalating actions that violate a person's privacy when their information is used by others. Which are the four actions in escalating order? ",
+                choices: ["Information collection, processing, dissemination, invasion", "Collection, dissemination, process, invasion", ],
+                answer: 0
+            },
+
+            {
+                question: "What is the scope of GDPR? ",
+                choices: ["GDPR regulates the colection and use of digital data colected about persons","GDPR regulates the colection and sale of data about Norwegians",
+                 "GDPR regulates al colection, processing and archival of information about human beings residing in Europe.", "The GDPR forbids export of data from the European Union and EFTA countries" ],
+                answer: 0
+            },
+
+            {
+                question: "What is the territorial scope of the GDPR? ",
+                choices: ["The GDPR is valid in the European Union and the countries associated throgh the EFTA agreement and in addition in other countries approved by the EU as equivalently safe for personal data","GDPR regulates the colection and sale of data about Norwegians",
+                 "The GDPR is valid only for data processed in the European Union.", "The GDPR is valid globaly anywhere were data of European citizens is processed", "The GDPR is valid in the European Union and the countries associated throgh the EFTA agreement." ],
+                answer: 0
+            },
+
+            {
+                question: " Wich of the folowing reasons are legitimate grounds for processing personal data in the GDPR? ",
+                choices: ["processing is necessary for compliance with a legal obligation to which the controler is subject;"," the data subject is below 13 years old can therefore not legaly consent to data proessing",
+                 "processing is necessary for the performance of a task carried out in the public interest or in the exercise of official authority vested in the controller", "processing is necessary for the purposes of the legitimate interests pursued by the contro ler or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data, in particular where the data subject is a child;",
+                "processing is necessary for the ensurance of business continuity, efficiency and profitability conducts and services;", " processing is necessary in order to protect the vital interests of the data subject or of another natural person", 
+                "the data subject has given consent to the processing of his or her personal data for one or more specific purposes;" , " processing is necessary for the performance of a contract to which the data subject is party or in order to take steps at the request of the data subject prior to entering into a contract;", 
+                "processing is inevitable to ensure the power of the government and to support control of the executive over important personal information", "processing wil improve the quality of algorithmic decision-making and wil therefore be beneficial to humanity;", 
+                "processing is essential for achievment of the bussiness objectives set forth by the board;", " processing is mutualy beneficial for al stakeholders"],
+                answer: [0, 2, 3, 5, 6,7]
+            },
+
+            {
+                question: "Which of the folowing is NOT a basic privacy principle as defined in the OECD guidelines? ",
+                choices: ["Transparency & Intervenability"," Appropriate Security Safeguards",
+                 "Reversability of processing", "Lawfulness of processing", "Accountability of processing", "Purpose Specification & Purpose Binding", " Data Minimization & Avoidance" ],
+                answer: 2
+            },
+
+            {
+                question: "Which types of pseudonyms can, according to Pfitzmann/Hansen, get used in on-line interactions? ",
+                choices: [" person pseudonyms, role pseudonyms, relationship pseudonyms, role.relationship pseudonyms, transaction pseudonyms"," self-chosen pseudonyms, self-signed pseudonyms, imposed identities, government identities",
+                 " citized numbers, social security numbers, digital certificates", " e-mail addresses, social media profiles, mobile phone numbers, credit card numbers" ],
+                answer: 0
+            },
+
+            {
+                question: " How does a MIX network reach its goal of unlinkability of sender and receiver? ",
+                choices: ["By using multi-party authentication and broadcast messaging schemes","Through encryption of message content;",
+                 " Through pooling and re-ordering of messages protected with several layers of encryption;", " Through injection of routing randomness over al MIX nodes that implement a spontaneous re-routing protocol " ],
+                answer: 2
+            },
+
+            {
+                question: " Please mark the six technical privacy protection goals (Hansen et. al): ",
+                choices: ["Availability "," Accessibility", "Transparency", " Sustainability",  " Integrity", " Intervenability", " Confidentiality", " Reproducibility", "Unlinkability",  ],
+                answer: [0,2,4,5,6,8]
+            },
+
+            {
+                question: " Ex-ante transparency is a concept where a data subject..  ",
+                choices: ["first must give consent to a mutualy accepted privacy policy document. "," has the means to learn about data processing before engaging with a data controler and before sending personal data.",
+                  "excercises its rights to inspect data against a previously used service", "requests an audition of a data processor for the handling of his/her personal data "  ],
+                answer: 1
+            },
+
+            {
+                question: " Which of the folowing are properties of anonymous credential / attribute-based credential systems? ",
+                choices: ["They use MIX protocols to send identity credentials ","  They establish intervenability through e liptic curve cryptography and double-blind signatures",
+                 "They separate credential issuer, credential user and relying party from each other throug cryptographic protocols", " They create unlinkability by creating verifiable one-time transactional psudonyms. "  ],
+                answer: [2, 3]
+            },
+
+            {
+                question: " Ex-post transparency is a concept where..",
+                choices: [" the data protection agency informs data subjects of privacy violations that have been discovered during a privacy audit.", 
+                " data controlers notify data subjects about the results of personal data processing",
+                 " data subjects can inspect the current and past status of processing of their personal data by others.", 
+                 " requested information about personal data processing is delevered by postal mail to the requesting data subject. "  ],
+                answer: 2
+            },
+
+            {
+                question: " In the InstantONS use case, please state the legal grounds for data processing of personal data from identity attributes throgh the FutureID identity broker! ",
+                choices: ["Consent: the individual has given clear consent for you to process their personal data for a specific purpose. ",
+                "Legitimate interests: the processing is necessary for your legitimate interests or the legitimate interests of a third party, unless there is a good reason to protect the individual’s personal data which overrides those legitimate interests.",
+                 "Vital interests: the processing is necessary to protect someone’s life.", 
+                 "Public task: the processing is necessary for you to perform a task in the public interest or for your official functions, and the task or function has a clear basis in law", 
+                 " Contract: the processing is necessary for a contract you have with the individual, or because they have asked you to take specific steps before entering into a contract.",
+                  ],
+                answer: [0, 1, 4]
+            },
+
+
+            {
+                question: " In security and privacy management inspired by the ISO27000 family of standards, the acronym PDCA is an abbreviation for ",
+                choices: ["Personal Data Control Activities"," Preemption, Destruction and Control of Adversaries",
+                 " Position-Disinfect-Counterstrike-Activate", " Plan-Do-Check-Act "  ],
+                answer: 3
+            },
+
+            {
+                question: " Recal privacy and security  controls! Controls were classified into various categories, for example technical and administratice controls. One classification sorts controls into functional categories according to their purpose. Please select those categories that describe control's functions out of the list below: ",
+                choices: ["Sensor controls","Preventative controls", "Liability controls", " Corrective controls", " Detective controls", "Perceptive controls", " Risk controls", " Alignment controls",
+                 "Compensatory controls "  ],
+                answer: [1, 3,4,8]
+            },
+
+            {
+                question: "What are the privacy-violating actions described by Dan Solove in his article A taxonomy of privacy? ",
+                choices: ["Identification, Authentification, Accumulation, Dissemination","Data accumulation, De-anonymization, Surveilance, Oppression",
+                 " Profiling, Spying, Spam Mail, Data Breach ", "  Information colection, Information processing, Information dissemination, Invasions "  ],
+                answer: 3
+            },
+
+            {
+                question: " Privacy patterns are ....... ",
+                choices: ["(encapsualted object-oriented class hierarchies"," empiricaly founded observations that provide evidence",
+                 "  general, reusable software design solutions ", "static variables that implement models "  ],
+                answer: 2
+            },
+
+            {
+                question: " Privacy patterns are general, reusable software design solutions to....",
+                choices: [" (innovate and advance massive data processing and machine learning"," detect abusive practices with data processing ",
+                 " common privacy protection problems  ", "  increase efficiency in privacy audit)within a given context.  "  ],
+                answer: 2
+            }
+
+
+        ];
+
+        let currentQuestionIndex = 0;
+
+        const questionElement = document.getElementById('question');
+        const choicesElement = document.getElementById('choices');
+        const resultElement = document.getElementById('result');
+        const classificationSection = document.getElementById('classificationSection');
+
+        function loadQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            choicesElement.innerHTML = "";
+
+            currentQuestion.choices.forEach((choice, index) => {
+                const li = document.createElement('li');
+                const button = document.createElement('button');
+                button.textContent = choice;
+                button.onclick = () => checkAnswer(index);
+                li.appendChild(button);
+
+                choicesElement.appendChild(li);
+            });
+
+            resultElement.textContent = "";
+        }
+
+      
+      
+        /*function handleSubmit() {
+            const selectedIndices = []; // Collect selected answers
+            const checkboxes = choicesElement.querySelectorAll("input[type='checkbox']");
+    
+            checkboxes.forEach((checkbox, index) => {
+                if (checkbox.checked) {
+                    selectedIndices.push(index); // Push index of checked answer
+                }
+            });
+
+            checkAnswer(selectedIndices); // Validate selected answers
+        } */
+
+        function checkAnswer(selectedIndex) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const correctAnswers = currentQuestion.answer;
+
+            /*const isCorrect = selectedIndices.length === correctAnswers.length && // Same number of answers
+            selectedIndices.every(index => correctAnswers.includes(index)); // All correct
+            */
+            if (selectedIndex === currentQuestion.answer) {
+                resultElement.textContent = "Correct!";
+                resultElement.style.color = "green";
+            } else {
+                resultElement.textContent = "Wrong! The correct answer was: " +
+                    currentQuestion.choices[currentQuestion.answer];
+                resultElement.style.color = "red";
+            }
+            
+            setTimeout(() => {
+                currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+                loadQuestion();
+            }, 1000); // Move to the next question after 2 seconds
+        }
+
+        // Load the first question on page load
+        loadQuestion();
+    </script>
+</body>
+</html>
